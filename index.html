@@ -77,23 +77,25 @@ th,td{text-align:left; padding:11px 12px; border-bottom:1px solid var(--line); v
 th{color:var(--muted); font-weight:500; font-size:.86rem; letter-spacing:.3px}
 tr:last-child td{border-bottom:none}
 
+/* DİKKAT: body'nin sınıfı 'lang-tr' / 'lang-en' olmalı — 'tr' / 'en' OLMAZ.
+   Aksi halde asagidaki .tr kurali body'nin KENDISIYLE eslesir ve tum sayfayi gizler. */
 .tr,.en{display:none}
-body.tr .tr{display:block}
-body.en .en{display:block}
+body.lang-tr .tr{display:block}
+body.lang-en .en{display:block}
 li.tr,li.en{display:none}
-body.tr li.tr, body.en li.en{display:list-item}
+body.lang-tr li.tr, body.lang-en li.en{display:list-item}
 span.tr,span.en{display:none}
-body.tr span.tr, body.en span.en{display:inline}
+body.lang-tr span.tr, body.lang-en span.en{display:inline}
 td.tr,td.en,th.tr,th.en{display:none}
-body.tr td.tr, body.en td.en{display:table-cell}
-body.tr th.tr, body.en th.en{display:table-cell}
+body.lang-tr td.tr, body.lang-en td.en{display:table-cell}
+body.lang-tr th.tr, body.lang-en th.en{display:table-cell}
 tr.tr,tr.en{display:none}
-body.tr tr.tr, body.en tr.en{display:table-row}
+body.lang-tr tr.tr, body.lang-en tr.en{display:table-row}
 
 footer{border-top:1px solid var(--line); margin-top:48px; padding-top:22px; color:var(--muted); font-size:.9rem}
 </style>
 </head>
-<body class="tr">
+<body class="lang-tr">
 
 <header>
   <div class="hd">
@@ -321,7 +323,8 @@ page — check the "Last updated" date above. For significant changes we will no
   var butonlar = document.querySelectorAll('.lang');
 
   function uygula(dil) {
-    document.body.className = dil;
+    // 'lang-' öneki şart: body'ye düz 'tr' verirsek .tr kuralı body'yi de gizler.
+    document.body.className = 'lang-' + dil;
     document.documentElement.lang = dil;
     document.title = dil === 'tr'
       ? 'Gizlilik Politikası — Car Club Online'
